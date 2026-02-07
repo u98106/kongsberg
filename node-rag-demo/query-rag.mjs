@@ -5,6 +5,7 @@ import { OpenAIEmbeddings, ChatOpenAI } from "@langchain/openai";
 import { ChromaClient } from "chromadb";
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const OPENAI_API_BASE = process.env.OPENAI_API_BASE;
 
 async function ragQuery(query) {
   // 1. Connect to Chroma and collection
@@ -20,6 +21,9 @@ async function ragQuery(query) {
   const embeddings = new OpenAIEmbeddings({
     model: "text-embedding-3-large",
     openAIApiKey: OPENAI_API_KEY,
+    configuration: {
+      baseURL: OPENAI_API_BASE,
+    },
   });
 
   const [queryVector] = await embeddings.embedDocuments([query]);
@@ -50,9 +54,12 @@ async function ragQuery(query) {
   ];
 
   const llm = new ChatOpenAI({
-    modelName: "gpt-4.1-mini",
+    modelName: "gpt-4.1",
     temperature: 0.2,
     openAIApiKey: OPENAI_API_KEY,
+    configuration: {
+      baseURL: OPENAI_API_BASE,
+    },
   });
 
   const response = await llm.invoke(prompt);

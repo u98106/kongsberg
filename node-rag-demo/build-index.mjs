@@ -6,6 +6,7 @@ import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { ChromaClient } from "chromadb";
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const OPENAI_API_BASE = process.env.OPENAI_API_BASE;
 
 async function main() {
   // 1. Sample docs (replace with loaders later)
@@ -32,6 +33,9 @@ async function main() {
   const embeddings = new OpenAIEmbeddings({
     model: "text-embedding-3-large",
     openAIApiKey: OPENAI_API_KEY,
+    configuration: {
+      baseURL: OPENAI_API_BASE,
+    },
   });
 
   const vectors = await embeddings.embedDocuments(splitDocs);
