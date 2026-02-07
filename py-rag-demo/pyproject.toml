@@ -1,0 +1,17 @@
+[project]
+name = "py-rag-demo"
+version = "0.1.0"
+description = "Python RAG demo using LangChain, Chroma, and OpenAI"
+requires-python = ">=3.9"
+dependencies = [
+    "python-dotenv>=1.0.0",
+    "langchain>=0.1.0",
+    "langchain-openai>=0.1.0",
+    "langchain-chroma>=0.1.0",
+    "langchain-text-splitters>=0.0.1",
+    "dotenv>=0.9.9",
+    "langchain-community>=0.3.31",
+]
+
+[tool.uv]
+dev-dependencies = []
